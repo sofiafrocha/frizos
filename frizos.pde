@@ -36,8 +36,8 @@ int betweenLines = 6;
 int heigthTextTotal = textSize + betweenLines;
 
 // Brushes
-int brushSize;
 int brushSizeDefault = 4;
+int brushSize = brushSizeDefault;
 int maxBrushSize = 12;
 boolean brushRandomize = false;
 int lockX;
@@ -45,6 +45,15 @@ int lockY;
 
 // Limitations
 boolean lock = false;
+
+// Colors
+color blue = color(59,149,147);
+color green = color(173,201,136);
+color purple = color(136,142,197);
+color red = color(198, 59, 80);
+
+color[] colors = {blue, green, purple, red};
+int colorPicker = 0;
 
 void setup() {
   size(widthSmall, heightSmall);
@@ -196,7 +205,7 @@ public class SecondApplet extends PApplet {
   }
   
   public void resetScreen() {
-    fill(198, 59, 80);
+    fill(red);
     noStroke();
     rect(offsetX, offsetY, widthSmall, heightSmall);
   }
@@ -225,7 +234,7 @@ void controlEvent(ControlEvent theEvent) {
     forShow = !forShow;
     
     //saveSmallFrame();
-    background(217, 30, 24);
+    background(red);
     
     println("offsetX: " + offsetX);
     println("widthSmall: " + widthSmall);
@@ -275,9 +284,29 @@ public void saveSmallFrame() {
       
       outgoing = s.get((i-3)*widthSmall, heightSmall, widthSmall, heightSmall);
     }
-    for (int i = 0; i < outgoing.pixels.length; i++) {
-      
     
+    outgoing.loadPixels();
+    println("pixels grabed");
+    
+    
+    for (int j = 0; j < outgoing.pixels.length; j++) {
+      if (outgoing.pixels[j] == red) {
+        //println("the pixel is red");
+        outgoing.pixels[j] = 0x00FFFFFF;
+      }
+      
+      else {
+        outgoing.pixels[j] = colors[colorPicker];
+      } 
+    }
+    
+    colorPicker++;
+    if(colorPicker == (colors.length)) {
+      colorPicker = 0;
+    }
+    
+    outgoing.updatePixels();
+    //println("this is a pixel: " + outgoing.pixels[50]);
     outgoing.save(dataPath("cobaia" + i + ".png"));
     
     println();
@@ -301,6 +330,5 @@ public void saveSmallFrame() {
       }
     }
   }
-  
   */
 }
