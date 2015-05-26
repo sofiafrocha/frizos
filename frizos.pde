@@ -312,6 +312,38 @@ public void saveSmallFrame() {
     println();
   }
   
+  // Load small squares and merging them
+  
+  PImage s0 = loadImage("cobaia0.png");
+  PImage s1 = loadImage("cobaia1.png");
+  s0.blend(s1, 0, 0, s1.width, s1.height, 0, 0, s0.width, s0.height, MULTIPLY);
+  
+  s0.save(dataPath("multiplied.png"));
+
+  PImage s2 = loadImage("cobaia2.png");
+  PImage s3 = loadImage("cobaia3.png");
+  s2.blend(s3, 0, 0, s3.width, s3.height, 0, 0, s2.width, s2.height, MULTIPLY);
+  
+  s2.save(dataPath("multiplied2.png"));
+  
+  PImage s4 = loadImage("cobaia4.png");
+  PImage s5 = loadImage("cobaia5.png");
+  s4.blend(s5, 0, 0, s5.width, s5.height, 0, 0, s4.width, s4.height, MULTIPLY);
+  
+  s4.save(dataPath("multiplied3.png"));
+  
+  s0 = loadImage(dataPath("multiplied.png"));
+  s1 = loadImage(dataPath("multiplied2.png"));
+  s0.blend(s1, 0, 0, s1.width, s1.height, 0, 0, s0.width, s0.height, MULTIPLY);
+  s0.save(dataPath("multiplied-final.png"));
+  
+  s2 = loadImage(dataPath("multiplied3.png"));
+  s3 = loadImage(dataPath("multiplied-final.png"));
+  s2.blend(s3, 0, 0, s3.width, s3.height, 0, 0, s2.width, s2.height, MULTIPLY);
+  s2.save(dataPath("multiplied-final.png"));
+
+  
+  
   /*File dir = new File(dataPath("")); 
   String[] list = dir.list();
   
